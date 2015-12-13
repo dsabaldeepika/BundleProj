@@ -33,7 +33,7 @@ namespace DealerPortalCRM.ViewModels
         public int ExcessMileageCreatedById { get; set; }
         public int ExcessMileageModifiedById { get; set; }
         public DateTime ExcessMileageCreatedDate { get; set; }
-        public DateTime ExcessMileageModifiedDate { get; set; }  
-
+        public DateTime ExcessMileageModifiedDate { get; set; }
+        public object VehicleMakeModelClassId { get; internal set; }
     }
 }

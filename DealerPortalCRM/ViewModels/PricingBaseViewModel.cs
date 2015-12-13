@@ -37,7 +37,7 @@ namespace DealerPortalCRM.ViewModels
         public int PricingBaseCreatedById { get; set; }
         public int PricingBaseModifiedById { get; set; }
         public DateTime PricingBaseCreatedDate { get; set; }
-        public DateTime PricingBaseModifiedDate { get; set; }  
-
+        public DateTime PricingBaseModifiedDate { get; set; }
+        public object VehicleMakeModelClassId { get; internal set; }
     }
 }

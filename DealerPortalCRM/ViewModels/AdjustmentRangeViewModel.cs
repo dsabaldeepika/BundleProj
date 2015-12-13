@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Portal.Core.Models.ScoringEngine;
+//using Portal.Core.Models.ScoringEngine;
 
 namespace DealerPortalCRM.ViewModels
 {
@@ -33,5 +33,6 @@ namespace DealerPortalCRM.ViewModels
         public int AdjustmentRangeModifiedById { get; set; }
         public DateTime AdjustmentRangeCreatedDate { get; set; }
         public DateTime AdjustmentRangeModifiedDate { get; set; }
+        public object VehicleMakeModelClassId { get; internal set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Portal.Core.Models.ScoringEngine;
 
 namespace DealerPortalCRM.ViewModels
 {
@@ -36,7 +35,7 @@ namespace DealerPortalCRM.ViewModels
         public int DealerDiscountCreatedById { get; set; }
         public int DealerDiscountModifiedById { get; set; }
         public DateTime DealerDiscountCreatedDate { get; set; }
-        public DateTime DealerDiscountModifiedDate { get; set; } 
-
+        public DateTime DealerDiscountModifiedDate { get; set; }
+        public object VehicleMakeModelClassId { get; internal set; }
     }
 }

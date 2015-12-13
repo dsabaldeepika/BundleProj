@@ -28,6 +28,7 @@ namespace DealerPortalCRM.ViewModels
         public int DealerScoreCreatedById { get; set; }
         public int DealerScoreModifiedById { get; set; }
         public DateTime DealerScoreCreatedDate { get; set; }
-        public DateTime DealerScoreModifiedDate { get; set; } 
+        public DateTime DealerScoreModifiedDate { get; set; }
+        public object VehicleMakeModelClassId { get; internal set; }
     }
 }

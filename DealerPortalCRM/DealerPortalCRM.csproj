@@ -43,6 +43,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -99,7 +107,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.js" />
+    <Content Include="app\app.js" />
     <Content Include="app\AdjustmentRange\adjustmentRange.html" />
     <Content Include="app\AdjustmentRange\adjustmentRange.js" />
     <Content Include="app\AdjustmentType\AdjustmentType.html" />
@@ -140,7 +148,7 @@
     <Content Include="app\VehicleModelType\vehicleModelType.js" />
     <Content Include="app\WhatIfAnalysis\whatIfAnalysis.html" />
     <Content Include="app\WhatIfAnalysis\whatIfAnalysis.js" />
-    <Content Include="config.js" />
+    <Content Include="app\config.js" />
     <Content Include="Content\angular-toastr.css" />
     <Content Include="Content\angular-toastr.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -151,6 +159,7 @@
     <Content Include="Content\toastr.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\popup.png" />
+    <Content Include="app\notificationFactory.js" />
     <Content Include="packages.config" />
     <Content Include="Scripts\angular-spinner.js" />
     <Content Include="Scripts\angular-spinner.min.js" />
@@ -555,20 +564,48 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdjustmentController.cs" />
+    <Compile Include="Controllers\AdjustmentRangeController.cs" />
+    <Compile Include="Controllers\AdjustmentTypeController.cs" />
+    <Compile Include="Controllers\AdjustmentTypeViewModel.cs" />
+    <Compile Include="Controllers\BuyRateController.cs" />
+    <Compile Include="Controllers\BuyRateViewModel.cs" />
+    <Compile Include="Controllers\ClassCodeAdjController.cs" />
+    <Compile Include="Controllers\ConnectionStringProperty.cs" />
+    <Compile Include="Controllers\DealerDiscountController.cs" />
+    <Compile Include="Controllers\DealerScoreController.cs" />
+    <Compile Include="Controllers\DocFeeController.cs" />
+    <Compile Include="Controllers\ExcessMileageController.cs" />
     <Compile Include="Controllers\IScore.cs" />
+    <Compile Include="Controllers\PricingBaseController.cs" />
     <Compile Include="Controllers\ScoreManager.cs" />
+    <Compile Include="Controllers\ScoringEngineResultsController.cs" />
+    <Compile Include="Controllers\ScoringEngineViewModel.cs" />
+    <Compile Include="Controllers\StateAdjustmentController.cs" />
+    <Compile Include="Controllers\StateCodeController.cs" />
+    <Compile Include="Controllers\StateCodeViewModel.cs" />
+    <Compile Include="Controllers\StateFicoRangeController.cs" />
+    <Compile Include="Controllers\TermCapController.cs" />
+    <Compile Include="Controllers\VehicleClassTypeController.cs" />
+    <Compile Include="Controllers\VehicleClassTypeViewModel.cs" />
+    <Compile Include="Controllers\VehicleMakeModelController.cs" />
+    <Compile Include="Controllers\VehicleModelTypeController.cs" />
+    <Compile Include="Controllers\WhatIfAnalysisController.cs" />
+    <Compile Include="Controllers\WhatIfAnalysisViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DealerPortalCRMContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AdjustmentRangeInLineEditingViewModel.cs" />
     <Compile Include="ViewModels\AdjustmentRangeViewModel.cs" />
+    <Compile Include="ViewModels\AdjustmentType.cs" />
     <Compile Include="ViewModels\AdjustmentViewModel.cs" />
     <Compile Include="ViewModels\ApplicationQueryModel.cs" />
     <Compile Include="ViewModels\ClassCodeAdjViewModel.cs" />
     <Compile Include="ViewModels\DealerDiscountViewModel.cs" />
     <Compile Include="ViewModels\DealerQueryModel.cs" />
     <Compile Include="ViewModels\DealerScoreViewModel.cs" />
+    <Compile Include="ViewModels\DealerType.cs" />
     <Compile Include="ViewModels\DocFeeViewModel.cs" />
     <Compile Include="ViewModels\ExcessMileageViewModel.cs" />
     <Compile Include="ViewModels\PricingBaseInLineEditingViewModel.cs" />
@@ -579,9 +616,13 @@
     <Compile Include="ViewModels\SalesRepQueryModel.cs" />
     <Compile Include="ViewModels\StateAdjustmentViewModel.cs" />
     <Compile Include="ViewModels\StateAPRViewModel.cs" />
+    <Compile Include="ViewModels\StateCode.cs" />
     <Compile Include="ViewModels\StateFICORangeViewModel.cs" />
     <Compile Include="ViewModels\TermCapViewModel.cs" />
+    <Compile Include="ViewModels\VehicleClassType.cs" />
     <Compile Include="ViewModels\VehicleMakeModelClassViewModel.cs" />
+    <Compile Include="ViewModels\VehicleMakeType.cs" />
+    <Compile Include="ViewModels\VehicleModelType.cs" />
     <Compile Include="ViewModels\VehicleModelTypeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

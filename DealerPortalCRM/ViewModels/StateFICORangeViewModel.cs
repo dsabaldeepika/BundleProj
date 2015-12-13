@@ -1,8 +1,7 @@
 ﻿
-﻿using System;
+using System;
 using System.Collections.Generic;
-﻿using System.ComponentModel.DataAnnotations;
-﻿using Portal.Core.Models.ScoringEngine;
+using System.ComponentModel.DataAnnotations;
 
 namespace DealerPortalCRM.ViewModels
 {
@@ -37,8 +36,8 @@ namespace DealerPortalCRM.ViewModels
         public int StateFicoRangeCreatedById { get; set; }
         public int StateFicoRangeModifiedById { get; set; }
         public DateTime StateFicoRangeCreatedDate { get; set; }
-        public DateTime StateFicoRangeModifiedDate { get; set; }   
-
+        public DateTime StateFicoRangeModifiedDate { get; set; }
+        public object VehicleMakeModelClassId { get; internal set; }
     }
 }
 

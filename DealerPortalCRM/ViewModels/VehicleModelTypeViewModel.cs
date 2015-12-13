@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Portal.Core.Models.ScoringEngine;
 
 
 namespace DealerPortalCRM.ViewModels
@@ -23,7 +22,8 @@ namespace DealerPortalCRM.ViewModels
         public int VehicleModelTypeCreatedById { get; set; }
         public int VehicleModelTypeModifiedById { get; set; }
         public DateTime VehicleModelTypeCreatedDate { get; set; }
-        public DateTime VehicleModelTypeModifiedDate { get; set; }   
+        public DateTime VehicleModelTypeModifiedDate { get; set; }
+        public object VehicleMakeModelClassId { get; internal set; }
     }
 }
 

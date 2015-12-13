@@ -8,7 +8,8 @@
             factory.baseurl=""
 
             console.log(factory.baseurl);
-            factory.get = function() {
+
+            factory.get = function () {
                 return $http.get(factory.baseurl)
                     .success(function(data, status, headers, config) {
                         return data;
@@ -21,7 +22,7 @@
             };
             factory.update = function(model) {
 
-                return $http.put(factory.baseurl, JSON.stringify(model)
+                return $http.put(factory.baseurl,model
                     )
                     .success(function(data, status, headers, config) {
 
@@ -33,9 +34,9 @@
                         return data;
                     });
             };
-            factory.delete = function(model) {
+            factory.delete = function(id) {
 
-                return $http.put(factory.baseurl, JSON.stringify(model)
+                return $http.put(factory.baseurl+id
                     )
                     .success(function(data, status, headers, config) {
 
@@ -49,7 +50,7 @@
             };
             factory.add = function(model) {
 
-                return $http.put(factory.baseurl, JSON.stringify(model)
+                return $http.put(factory.baseurl, model
                     )
                     .success(function(data, status, headers, config) {
 

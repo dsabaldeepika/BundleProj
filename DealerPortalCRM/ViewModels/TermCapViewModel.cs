@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Portal.Core.Models.ScoringEngine;
 
 
 namespace DealerPortalCRM.ViewModels
@@ -35,7 +34,8 @@ namespace DealerPortalCRM.ViewModels
         public int TermCapCreatedById { get; set; }
         public int TermCapModifiedById { get; set; }
         public DateTime TermCapCreatedDate { get; set; }
-        public DateTime TermCapModifiedDate { get; set; } 
+        public DateTime TermCapModifiedDate { get; set; }
+        public object VehicleMakeModelClassId { get; internal set; }
     }
 }
 
