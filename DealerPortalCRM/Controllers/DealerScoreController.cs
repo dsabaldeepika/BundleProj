@@ -15,29 +15,29 @@ namespace DealerPortalCRM.Controllers
 {
     public class DealerScoreController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
 
 
         public DealerScoreController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<DealerScoreViewModel> GetDealerScoreViewModels()
+        public IQueryable<DealerScoreViewModel> Get()
         {
-            return scoreManager.DealerScoreViewModels;
+            return _scoreManager.DealerScoreViewModels;
         }
 
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutDealerScoreViewModel(DealerScoreViewModel DealerScoreViewModel)
+        public async Task<IHttpActionResult> Put(DealerScoreViewModel dealerScoreViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -52,7 +52,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DealerScoreViewModelExists(DealerScoreViewModel))
+                if (!DealerScoreViewModelExists(dealerScoreViewModel))
                 {
                     return NotFound();
                 }
@@ -67,7 +67,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/DealerScoreViewModels
         [ResponseType(typeof(DealerScoreViewModel))]
-        public async Task<IHttpActionResult> PostDealerScoreViewModel(DealerScoreViewModel DealerScoreViewModel)
+        public async Task<IHttpActionResult> Post(DealerScoreViewModel dealerScoreViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!DealerScoreViewModelExists(DealerScoreViewModel))
+                if (!DealerScoreViewModelExists(dealerScoreViewModel))
                 {
                     return NotFound();
                 }
@@ -90,16 +90,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = DealerScoreViewModel.VehicleMakeModelClassId }, DealerScoreViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = dealerScoreViewModel.VehicleMakeModelClassId }, dealerScoreViewModel);
         }
 
         // DELETE: api/DealerScoreViewModels/5
         [ResponseType(typeof(DealerScoreViewModel))]
-        public async Task<IHttpActionResult> DeleteDealerScoreViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //DealerScoreViewModel DealerScoreViewModel = await scoreManager.DealerScoreViewModels.FindAsync(id);//
-            DealerScoreViewModel DealerScoreViewModel = new DealerScoreViewModel();
-            if (DealerScoreViewModel == null)
+            DealerScoreViewModel dealerScoreViewModel = new DealerScoreViewModel();
+            if (dealerScoreViewModel == null)
             {
                 return NotFound();
             }
@@ -107,19 +107,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.DealerScoreViewModels.Remove(DealerScoreViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(DealerScoreViewModel);
+            return Ok(dealerScoreViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool DealerScoreViewModelExists(DealerScoreViewModel DealerScoreViewModel)
+        private bool DealerScoreViewModelExists(DealerScoreViewModel dealerScoreViewModel)
         {
             //hardcoded
             return false;

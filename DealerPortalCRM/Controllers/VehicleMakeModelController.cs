@@ -12,12 +12,12 @@ namespace DealerPortalCRM.Controllers
 {
     public class VehicleMakeModelController : ApiController
     {
-        private DealerPortalCRMContext db = new DealerPortalCRMContext();
+        private DealerPortalCRMContext _db = new DealerPortalCRMContext();
 
         // GET: api/VehicleMakeModelClassViewModels
         public IQueryable<VehicleMakeModelClassViewModel> Get()
         {
-            return db.VehicleMakeModelClassViewModels;
+            return _db.VehicleMakeModelClassViewModels;
         }
 
       // PUT: api/VehicleMakeModelClassViewModels/5
@@ -29,11 +29,11 @@ namespace DealerPortalCRM.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Entry(vehicleMakeModelClassViewModel).State = EntityState.Modified;
+            _db.Entry(vehicleMakeModelClassViewModel).State = EntityState.Modified;
 
             try
             {
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -60,8 +60,8 @@ namespace DealerPortalCRM.Controllers
             }
             try
             {
-                db.VehicleMakeModelClassViewModels.Add(vehicleMakeModelClassViewModel);
-                await db.SaveChangesAsync();
+                _db.VehicleMakeModelClassViewModels.Add(vehicleMakeModelClassViewModel);
+                await _db.SaveChangesAsync();
             }
             catch (System.Exception)
             {
@@ -82,14 +82,14 @@ namespace DealerPortalCRM.Controllers
         [ResponseType(typeof(VehicleMakeModelClassViewModel))]
         public async Task<IHttpActionResult> Delete(int id)
         {
-            VehicleMakeModelClassViewModel vehicleMakeModelClassViewModel = await db.VehicleMakeModelClassViewModels.FindAsync(id);
+            VehicleMakeModelClassViewModel vehicleMakeModelClassViewModel = await _db.VehicleMakeModelClassViewModels.FindAsync(id);
             if (vehicleMakeModelClassViewModel == null)
             {
                 return NotFound();
             }
 
-            db.VehicleMakeModelClassViewModels.Remove(vehicleMakeModelClassViewModel);
-            await db.SaveChangesAsync();
+            _db.VehicleMakeModelClassViewModels.Remove(vehicleMakeModelClassViewModel);
+            await _db.SaveChangesAsync();
 
             return Ok(vehicleMakeModelClassViewModel);
         }
@@ -98,14 +98,14 @@ namespace DealerPortalCRM.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool VehicleMakeModelClassViewModelExists(VehicleMakeModelClassViewModel vehicleMakeModelClassViewModel)
         {
-            return db.VehicleMakeModelClassViewModels.Count(e => e.VehicleMakeModelClassId == vehicleMakeModelClassViewModel.VehicleMakeModelClassId) > 0;
+            return _db.VehicleMakeModelClassViewModels.Count(e => e.VehicleMakeModelClassId == vehicleMakeModelClassViewModel.VehicleMakeModelClassId) > 0;
         }
     }
 }

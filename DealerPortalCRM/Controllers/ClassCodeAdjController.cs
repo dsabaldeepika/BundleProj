@@ -15,25 +15,25 @@ namespace DealerPortalCRM.Controllers
 {
     public class ClassCodeAdjController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
 
 
         public ClassCodeAdjController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<ClassCodeAdjViewModel> GetClassCodeAdjViewModels()
+        public IQueryable<ClassCodeAdjViewModel> Get()
         {
-            return scoreManager.ClassCodeAdjViewModels;
+            return _scoreManager.ClassCodeAdjViewModels;
         }
 
         // GET: api/ClassCodeAdjViewModels/5
@@ -41,7 +41,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/ClassCodeAdjViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutClassCodeAdjViewModel(ClassCodeAdjViewModel ClassCodeAdjViewModel)
+        public async Task<IHttpActionResult> Put(ClassCodeAdjViewModel classCodeAdjViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClassCodeAdjViewModelExists(ClassCodeAdjViewModel))
+                if (!ClassCodeAdjViewModelExists(classCodeAdjViewModel))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/ClassCodeAdjViewModels
         [ResponseType(typeof(ClassCodeAdjViewModel))]
-        public async Task<IHttpActionResult> PostClassCodeAdjViewModel(ClassCodeAdjViewModel ClassCodeAdjViewModel)
+        public async Task<IHttpActionResult> Post(ClassCodeAdjViewModel classCodeAdjViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!ClassCodeAdjViewModelExists(ClassCodeAdjViewModel))
+                if (!ClassCodeAdjViewModelExists(classCodeAdjViewModel))
                 {
                     return NotFound();
                 }
@@ -94,16 +94,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = ClassCodeAdjViewModel.VehicleMakeModelClassId }, ClassCodeAdjViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = classCodeAdjViewModel.VehicleMakeModelClassId }, classCodeAdjViewModel);
         }
 
         // DELETE: api/ClassCodeAdjViewModels/5
         [ResponseType(typeof(ClassCodeAdjViewModel))]
-        public async Task<IHttpActionResult> DeleteClassCodeAdjViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //ClassCodeAdjViewModel ClassCodeAdjViewModel = await scoreManager.ClassCodeAdjViewModels.FindAsync(id);//
-            ClassCodeAdjViewModel ClassCodeAdjViewModel = new ClassCodeAdjViewModel();
-            if (ClassCodeAdjViewModel == null)
+            ClassCodeAdjViewModel classCodeAdjViewModel = new ClassCodeAdjViewModel();
+            if (classCodeAdjViewModel == null)
             {
                 return NotFound();
             }
@@ -111,19 +111,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.ClassCodeAdjViewModels.Remove(ClassCodeAdjViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(ClassCodeAdjViewModel);
+            return Ok(classCodeAdjViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool ClassCodeAdjViewModelExists(ClassCodeAdjViewModel ClassCodeAdjViewModel)
+        private bool ClassCodeAdjViewModelExists(ClassCodeAdjViewModel classCodeAdjViewModel)
         {
             //hardcoded
             return false;

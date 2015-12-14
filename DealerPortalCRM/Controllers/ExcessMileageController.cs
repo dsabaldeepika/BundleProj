@@ -15,25 +15,25 @@ namespace DealerPortalCRM.Controllers
 {
     public class ExcessMileageController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
 
 
         public ExcessMileageController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<ExcessMileageViewModel> GetExcessMileageViewModels()
+        public IQueryable<ExcessMileageViewModel> Get()
         {
-            return scoreManager.ExcessMileageViewModels;
+            return _scoreManager.ExcessMileageViewModels;
         }
 
         // GET: api/ExcessMileageViewModels/5
@@ -41,7 +41,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/ExcessMileageViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutExcessMileageViewModel(ExcessMileageViewModel ExcessMileageViewModel)
+        public async Task<IHttpActionResult> Put(ExcessMileageViewModel excessMileageViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ExcessMileageViewModelExists(ExcessMileageViewModel))
+                if (!ExcessMileageViewModelExists(excessMileageViewModel))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/ExcessMileageViewModels
         [ResponseType(typeof(ExcessMileageViewModel))]
-        public async Task<IHttpActionResult> PostExcessMileageViewModel(ExcessMileageViewModel ExcessMileageViewModel)
+        public async Task<IHttpActionResult> Post(ExcessMileageViewModel excessMileageViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!ExcessMileageViewModelExists(ExcessMileageViewModel))
+                if (!ExcessMileageViewModelExists(excessMileageViewModel))
                 {
                     return NotFound();
                 }
@@ -94,16 +94,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = ExcessMileageViewModel.VehicleMakeModelClassId }, ExcessMileageViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = excessMileageViewModel.VehicleMakeModelClassId }, excessMileageViewModel);
         }
 
         // DELETE: api/ExcessMileageViewModels/5
         [ResponseType(typeof(ExcessMileageViewModel))]
-        public async Task<IHttpActionResult> DeleteExcessMileageViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //ExcessMileageViewModel ExcessMileageViewModel = await scoreManager.ExcessMileageViewModels.FindAsync(id);//
-            ExcessMileageViewModel ExcessMileageViewModel = new ExcessMileageViewModel();
-            if (ExcessMileageViewModel == null)
+            ExcessMileageViewModel excessMileageViewModel = new ExcessMileageViewModel();
+            if (excessMileageViewModel == null)
             {
                 return NotFound();
             }
@@ -111,19 +111,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.ExcessMileageViewModels.Remove(ExcessMileageViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(ExcessMileageViewModel);
+            return Ok(excessMileageViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool ExcessMileageViewModelExists(ExcessMileageViewModel ExcessMileageViewModel)
+        private bool ExcessMileageViewModelExists(ExcessMileageViewModel excessMileageViewModel)
         {
             //hardcoded
             return false;

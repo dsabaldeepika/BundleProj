@@ -15,25 +15,25 @@ namespace DealerPortalCRM.Controllers
 {
     public class AdjustmentTypeController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
 
 
         public AdjustmentTypeController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<AdjustmentTypeViewModel> GetAdjustmentTypeViewModels()
+        public IQueryable<AdjustmentTypeViewModel> Get()
         {
-            return scoreManager.AdjustmentTypeViewModels;
+            return _scoreManager.AdjustmentTypeViewModels;
         }
 
         // GET: api/AdjustmentTypeViewModels/5
@@ -41,7 +41,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/AdjustmentTypeViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAdjustmentTypeViewModel(AdjustmentTypeViewModel AdjustmentTypeViewModel)
+        public async Task<IHttpActionResult> Put(AdjustmentTypeViewModel adjustmentTypeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AdjustmentTypeViewModelExists(AdjustmentTypeViewModel))
+                if (!AdjustmentTypeViewModelExists(adjustmentTypeViewModel))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/AdjustmentTypeViewModels
         [ResponseType(typeof(AdjustmentTypeViewModel))]
-        public async Task<IHttpActionResult> PostAdjustmentTypeViewModel(AdjustmentTypeViewModel AdjustmentTypeViewModel)
+        public async Task<IHttpActionResult> Post(AdjustmentTypeViewModel adjustmentTypeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!AdjustmentTypeViewModelExists(AdjustmentTypeViewModel))
+                if (!AdjustmentTypeViewModelExists(adjustmentTypeViewModel))
                 {
                     return NotFound();
                 }
@@ -94,16 +94,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = AdjustmentTypeViewModel.VehicleMakeModelClassId }, AdjustmentTypeViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = adjustmentTypeViewModel.VehicleMakeModelClassId }, adjustmentTypeViewModel);
         }
 
         // DELETE: api/AdjustmentTypeViewModels/5
         [ResponseType(typeof(AdjustmentTypeViewModel))]
-        public async Task<IHttpActionResult> DeleteAdjustmentTypeViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //AdjustmentTypeViewModel AdjustmentTypeViewModel = await scoreManager.AdjustmentTypeViewModels.FindAsync(id);//
-            AdjustmentTypeViewModel AdjustmentTypeViewModel = new AdjustmentTypeViewModel();
-            if (AdjustmentTypeViewModel == null)
+            AdjustmentTypeViewModel adjustmentTypeViewModel = new AdjustmentTypeViewModel();
+            if (adjustmentTypeViewModel == null)
             {
                 return NotFound();
             }
@@ -111,19 +111,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.AdjustmentTypeViewModels.Remove(AdjustmentTypeViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(AdjustmentTypeViewModel);
+            return Ok(adjustmentTypeViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool AdjustmentTypeViewModelExists(AdjustmentTypeViewModel AdjustmentTypeViewModel)
+        private bool AdjustmentTypeViewModelExists(AdjustmentTypeViewModel adjustmentTypeViewModel)
         {
             //hardcoded
             return false;

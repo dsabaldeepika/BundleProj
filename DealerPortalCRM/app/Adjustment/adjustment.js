@@ -2,104 +2,71 @@
 (function() {
 
     angular.module("app").controller("adjustment", [
-        "$scope", "uiGridConstants", "uiGridGroupingConstants", "commonCrud", "restService",
-        function($scope, uiGridConstants, uiGridGroupingConstants, commonCrud, restService) {
+        "$scope", "uiGridConstants", "uiGridGroupingConstants", "commonCrud", "restService","$filter",
+        function ($scope, uiGridConstants, uiGridGroupingConstants, commonCrud, restService, $filter) {
 
             restService.baseurl = "api/adjustment/";
 
-            restService.get().then(function(result) {
-                $scope.gridOptions.data = result.data;
-
+           
+            restService.update($scope.currentlyEdited).then(function (result) {
+                 console.log(result);
             });
 
-            //$scope.gridOptions.rowIdentity = function (row) {
-            //    return row.id;
-            //};
-            //$scope.gridOptions.getRowIdentity = function (row) {
-            //    return row.id;
-            //};
+            $scope.users = [
+              restService.get().then(function(result) {
+                $scope.user = result.data;
+            })
+            ]; 
 
-            $scope.gridOptions = {
-                columnDefs: [
-                    { field: "VehicleMakeTypeDisplayName", cellTooltip: "Click to edit", enableCellEditOnFocus: true },
-                    {
-                        name: "VehicleModelTypeDisplayName",
-                        field: "VehicleModelTypeDisplayName",
-                        editType: "dropdown",
-                        enableCellEdit: true,
-                        editDropdownOptionsArray: $scope.VehicleModelTypeDisplayName,
-                        editableCellTemplate: "ui-grid/dropdownEditor",
-                        editDropdownIdLabel: "VehicleModelTypeDisplayName"
-                    },
-                    { field: "VehicleClassTypeDisplayName", enableCellEdit: true },
-                    { field: "VehicleMakeModelClassCreatedDate", enableCellEdit: true },
-                    { field: "VehicleMakeModelClassModifiedDate", enableCellEdit: true }
-                ],
-
-                enableGridMenu: true,
-                enableFiltering: true,
-                showColumnFooter: true,
-                enableColumnResizing: true,
-                showGridFooter: true,
-                enableSorting: true,
-                enablePaginationControls: false,
-                paginationPageSize: 25
-
-            };
-
-            $scope.currentFocused = "";
-
-            $scope.gridOptions.onRegisterApi = function(gridApi) {
-
-                //set gridApi on scope
-                $scope.gridApi = gridApi;
-                gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef) {
-
-                    commonCrud.getModelTypeByID(rowEntity.VehicleMakeTypeID).then(function(result) {
+            $scope.statuses = [
+              {value: 1, text: 'status1'},
+              {value: 2, text: 'status2'},
+              {value: 3, text: 'status3'},
+              {value: 4, text: 'status4'}
+            ]; 
 
 
-                        //   $scope.VehicleModelTypeDisplayName = result.data;
-
-                        angular.forEach(result.data, function(key, value) {
-                            $scope.VehicleModelTypeDisplayName.push({ "id": key, "key": value });
-
-                        });
-
-                        console.log($scope.VehicleModelTypeDisplayName);
-                        //    rowEntity.VehicleModelTypeDisplayName = $scope.VehicleModelTypeDisplayName;
-                    });
-
+            $scope.groups = [];
+            $scope.loadGroups = function() {
+                return $scope.groups.length ? null : $http.get('/groups').success(function(data) {
+                    $scope.groups = data;
                 });
-
-                //gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
-                //    if (colDef.name === 'gender') {
-                //        if (newValue === 1) {
-                //            rowEntity.sizeOptions = $scope.maleSizeDropdownOptions;
-                //        } else {
-                //            rowEntity.sizeOptions = $scope.femaleSizeDropdownOptions;
-                //        }
-                //    }
-                //});
-            };
-            $scope.gridOptions.importerDataAddCallback = function(grid, newObjects) {
-                $scope.data = $scope.data.concat(newObjects);
             };
 
-            console.log($scope.gridOptions);
-            console.log($scope.gridOptions.columnDefs);
-
-            $scope.update = function() {
-                var rowCol = $scope.gridApi.cellNav.getFocusedCell();
-
-                if (rowCol !== null) {
-                    $scope.currentlyEdited = rowCol.row.entity;
-
-                    restService.update($scope.currentlyEdited).then(function(result) {
-                        $scope.gridOptions.data = result.data;
-                        console.log(result);
-                    });
+            $scope.showGroup = function(user) {
+                if(user.group && $scope.groups.length) {
+                    var selected = $filter('filter')($scope.groups, {id: user.group});
+                    return selected.length ? selected[0].text : 'Not set';
+                } else {
+                    return user.groupName || 'Not set';
                 }
             };
+
+            $scope.showStatus = function(user) {
+                var selected = [];
+                if(user.status) {
+                    selected = $filter('filter')($scope.statuses, {value: user.status});
+                }
+                return selected.length ? selected[0].text : 'Not set';
+            };
+
+            // remove user
+            $scope.removeUser = function(index) {
+                $scope.users.splice(index, 1);
+                restService.delete(index).then(function (result) {
+                    });
+            };
+
+            // add user
+            $scope.addUser = function() {
+                $scope.users.push($scope.inserted);
+                restService.add($scope.newUser).then(function (result) {
+                    console.log(result);
+                });
+            };
+    
+                 
+        
         }
     ]);
 

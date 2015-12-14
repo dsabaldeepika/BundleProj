@@ -15,23 +15,23 @@ namespace DealerPortalCRM.Controllers
 {
     public class StateCodeController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
         
         public StateCodeController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.StateCode);
             //   db = new StateCodeEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<StateCodeViewModel> GetStateCodeViewModels()
+        public IQueryable<StateCodeViewModel> Get()
         {
-            return scoreManager.StateCodeViewModels;
+            return _scoreManager.StateCodeViewModels;
         }
 
         // GET: api/StateCodeViewModels/5
@@ -39,7 +39,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/StateCodeViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutStateCodeViewModel(StateCodeViewModel StateCodeViewModel)
+        public async Task<IHttpActionResult> Put(StateCodeViewModel stateCodeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StateCodeViewModelExists(StateCodeViewModel))
+                if (!StateCodeViewModelExists(stateCodeViewModel))
                 {
                     return NotFound();
                 }
@@ -69,7 +69,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/StateCodeViewModels
         [ResponseType(typeof(StateCodeViewModel))]
-        public async Task<IHttpActionResult> PostStateCodeViewModel(StateCodeViewModel StateCodeViewModel)
+        public async Task<IHttpActionResult> Post(StateCodeViewModel stateCodeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!StateCodeViewModelExists(StateCodeViewModel))
+                if (!StateCodeViewModelExists(stateCodeViewModel))
                 {
                     return NotFound();
                 }
@@ -92,16 +92,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = StateCodeViewModel.VehicleMakeModelClassId }, StateCodeViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = stateCodeViewModel.VehicleMakeModelClassId }, stateCodeViewModel);
         }
 
         // DELETE: api/StateCodeViewModels/5
         [ResponseType(typeof(StateCodeViewModel))]
-        public async Task<IHttpActionResult> DeleteStateCodeViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //StateCodeViewModel StateCodeViewModel = await scoreManager.StateCodeViewModels.FindAsync(id);//
-            StateCodeViewModel StateCodeViewModel = new StateCodeViewModel();
-            if (StateCodeViewModel == null)
+            StateCodeViewModel stateCodeViewModel = new StateCodeViewModel();
+            if (stateCodeViewModel == null)
             {
                 return NotFound();
             }
@@ -109,19 +109,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.StateCodeViewModels.Remove(StateCodeViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(StateCodeViewModel);
+            return Ok(stateCodeViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool StateCodeViewModelExists(StateCodeViewModel StateCodeViewModel)
+        private bool StateCodeViewModelExists(StateCodeViewModel stateCodeViewModel)
         {
             //hardcoded
             return false;

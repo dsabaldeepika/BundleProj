@@ -15,23 +15,23 @@ namespace DealerPortalCRM.Controllers
 {
     public class VehicleClassTypeController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
         public VehicleClassTypeController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<VehicleClassTypeViewModel> GetVehicleClassTypeViewModels()
+        public IQueryable<VehicleClassTypeViewModel> Get()
         {
-            return scoreManager.VehicleClassTypeViewModels;
+            return _scoreManager.VehicleClassTypeViewModels;
         }
 
         // GET: api/VehicleClassTypeViewModels/5
@@ -39,7 +39,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/VehicleClassTypeViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutVehicleClassTypeViewModel(VehicleClassTypeViewModel VehicleClassTypeViewModel)
+        public async Task<IHttpActionResult> Put(VehicleClassTypeViewModel vehicleClassTypeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!VehicleClassTypeViewModelExists(VehicleClassTypeViewModel))
+                if (!VehicleClassTypeViewModelExists(vehicleClassTypeViewModel))
                 {
                     return NotFound();
                 }
@@ -69,7 +69,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/VehicleClassTypeViewModels
         [ResponseType(typeof(VehicleClassTypeViewModel))]
-        public async Task<IHttpActionResult> PostVehicleClassTypeViewModel(VehicleClassTypeViewModel VehicleClassTypeViewModel)
+        public async Task<IHttpActionResult> Post(VehicleClassTypeViewModel vehicleClassTypeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!VehicleClassTypeViewModelExists(VehicleClassTypeViewModel))
+                if (!VehicleClassTypeViewModelExists(vehicleClassTypeViewModel))
                 {
                     return NotFound();
                 }
@@ -92,16 +92,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = VehicleClassTypeViewModel.VehicleMakeModelClassId }, VehicleClassTypeViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = vehicleClassTypeViewModel.VehicleMakeModelClassId }, vehicleClassTypeViewModel);
         }
 
         // DELETE: api/VehicleClassTypeViewModels/5
         [ResponseType(typeof(VehicleClassTypeViewModel))]
-        public async Task<IHttpActionResult> DeleteVehicleClassTypeViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //VehicleClassTypeViewModel VehicleClassTypeViewModel = await scoreManager.VehicleClassTypeViewModels.FindAsync(id);//
-            VehicleClassTypeViewModel VehicleClassTypeViewModel = new VehicleClassTypeViewModel();
-            if (VehicleClassTypeViewModel == null)
+            VehicleClassTypeViewModel vehicleClassTypeViewModel = new VehicleClassTypeViewModel();
+            if (vehicleClassTypeViewModel == null)
             {
                 return NotFound();
             }
@@ -109,19 +109,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.VehicleClassTypeViewModels.Remove(VehicleClassTypeViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(VehicleClassTypeViewModel);
+            return Ok(vehicleClassTypeViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool VehicleClassTypeViewModelExists(VehicleClassTypeViewModel VehicleClassTypeViewModel)
+        private bool VehicleClassTypeViewModelExists(VehicleClassTypeViewModel vehicleClassTypeViewModel)
         {
             //hardcoded
             return false;

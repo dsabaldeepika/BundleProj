@@ -15,25 +15,23 @@ namespace DealerPortalCRM.Controllers
 {
     public class DocFeeController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
-
-
-
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
+        
         public DocFeeController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<DocFeeViewModel> GetDocFeeViewModels()
+        public IQueryable<DocFeeViewModel> Get()
         {
-            return scoreManager.DocFeeViewModels;
+            return _scoreManager.DocFeeViewModels;
         }
 
         // GET: api/DocFeeViewModels/5
@@ -41,7 +39,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/DocFeeViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutDocFeeViewModel(DocFeeViewModel DocFeeViewModel)
+        public async Task<IHttpActionResult> Put(DocFeeViewModel docFeeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +54,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DocFeeViewModelExists(DocFeeViewModel))
+                if (!DocFeeViewModelExists(docFeeViewModel))
                 {
                     return NotFound();
                 }
@@ -71,7 +69,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/DocFeeViewModels
         [ResponseType(typeof(DocFeeViewModel))]
-        public async Task<IHttpActionResult> PostDocFeeViewModel(DocFeeViewModel DocFeeViewModel)
+        public async Task<IHttpActionResult> Post(DocFeeViewModel docFeeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +82,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!DocFeeViewModelExists(DocFeeViewModel))
+                if (!DocFeeViewModelExists(docFeeViewModel))
                 {
                     return NotFound();
                 }
@@ -94,16 +92,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = DocFeeViewModel.VehicleMakeModelClassId }, DocFeeViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = docFeeViewModel.VehicleMakeModelClassId }, docFeeViewModel);
         }
 
         // DELETE: api/DocFeeViewModels/5
         [ResponseType(typeof(DocFeeViewModel))]
-        public async Task<IHttpActionResult> DeleteDocFeeViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //DocFeeViewModel DocFeeViewModel = await scoreManager.DocFeeViewModels.FindAsync(id);//
-            DocFeeViewModel DocFeeViewModel = new DocFeeViewModel();
-            if (DocFeeViewModel == null)
+            DocFeeViewModel docFeeViewModel = new DocFeeViewModel();
+            if (docFeeViewModel == null)
             {
                 return NotFound();
             }
@@ -111,19 +109,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.DocFeeViewModels.Remove(DocFeeViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(DocFeeViewModel);
+            return Ok(docFeeViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool DocFeeViewModelExists(DocFeeViewModel DocFeeViewModel)
+        private bool DocFeeViewModelExists(DocFeeViewModel docFeeViewModel)
         {
             //hardcoded
             return false;

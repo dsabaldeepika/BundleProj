@@ -36,7 +36,7 @@
             };
             factory.delete = function(id) {
 
-                return $http.put(factory.baseurl+id
+                return $http.delete(factory.baseurl + parseInt(id)
                     )
                     .success(function(data, status, headers, config) {
 
@@ -50,7 +50,7 @@
             };
             factory.add = function(model) {
 
-                return $http.put(factory.baseurl, model
+                return $http.post(factory.baseurl, model
                     )
                     .success(function(data, status, headers, config) {
 

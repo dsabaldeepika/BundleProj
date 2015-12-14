@@ -7,11 +7,11 @@ namespace DealerPortalCRM.Controllers
     internal class ScoreManager : IScore
     {
         internal IQueryable<AdjustmentRangeViewModel> AdjustmentRangeViewModels;
-        private ScoringEngineEntities db;
+        private ScoringEngineEntities _db;
 
         public ScoreManager(ScoringEngineEntities db)
         {
-            this.db = db;
+            this._db = db;
         }
 
         public IQueryable<AdjustmentTypeViewModel> AdjustmentTypeViewModels { get; internal set; }
@@ -34,11 +34,11 @@ namespace DealerPortalCRM.Controllers
 
     internal class ScoringEngineEntities
     {
-        private string connectionString;
+        private string _connectionString;
 
         public ScoringEngineEntities(string connectionString)
         {
-            this.connectionString = connectionString;
+            this._connectionString = connectionString;
         }
 
         internal void Dispose()

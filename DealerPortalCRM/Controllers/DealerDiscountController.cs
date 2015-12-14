@@ -15,25 +15,25 @@ namespace DealerPortalCRM.Controllers
 {
     public class DealerDiscountController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
 
 
         public DealerDiscountController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<DealerDiscountViewModel> GetDealerDiscountViewModels()
+        public IQueryable<DealerDiscountViewModel> Get()
         {
-            return scoreManager.DealerDiscountViewModels;
+            return _scoreManager.DealerDiscountViewModels;
         }
 
         // GET: api/DealerDiscountViewModels/5
@@ -41,7 +41,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/DealerDiscountViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutDealerDiscountViewModel(DealerDiscountViewModel DealerDiscountViewModel)
+        public async Task<IHttpActionResult> PutDealer(DealerDiscountViewModel dealerDiscountViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DealerDiscountViewModelExists(DealerDiscountViewModel))
+                if (!DealerDiscountViewModelExists(dealerDiscountViewModel))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/DealerDiscountViewModels
         [ResponseType(typeof(DealerDiscountViewModel))]
-        public async Task<IHttpActionResult> PostDealerDiscountViewModel(DealerDiscountViewModel DealerDiscountViewModel)
+        public async Task<IHttpActionResult> PostDealer(DealerDiscountViewModel dealerDiscountViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!DealerDiscountViewModelExists(DealerDiscountViewModel))
+                if (!DealerDiscountViewModelExists(dealerDiscountViewModel))
                 {
                     return NotFound();
                 }
@@ -94,16 +94,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = DealerDiscountViewModel.VehicleMakeModelClassId }, DealerDiscountViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = dealerDiscountViewModel.VehicleMakeModelClassId }, dealerDiscountViewModel);
         }
 
         // DELETE: api/DealerDiscountViewModels/5
         [ResponseType(typeof(DealerDiscountViewModel))]
-        public async Task<IHttpActionResult> DeleteDealerDiscountViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //DealerDiscountViewModel DealerDiscountViewModel = await scoreManager.DealerDiscountViewModels.FindAsync(id);//
-            DealerDiscountViewModel DealerDiscountViewModel = new DealerDiscountViewModel();
-            if (DealerDiscountViewModel == null)
+            DealerDiscountViewModel dealerDiscountViewModel = new DealerDiscountViewModel();
+            if (dealerDiscountViewModel == null)
             {
                 return NotFound();
             }
@@ -111,19 +111,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.DealerDiscountViewModels.Remove(DealerDiscountViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(DealerDiscountViewModel);
+            return Ok(dealerDiscountViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool DealerDiscountViewModelExists(DealerDiscountViewModel DealerDiscountViewModel)
+        private bool DealerDiscountViewModelExists(DealerDiscountViewModel dealerDiscountViewModel)
         {
             //hardcoded
             return false;

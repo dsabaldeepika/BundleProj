@@ -15,25 +15,25 @@ namespace DealerPortalCRM.Controllers
 {
     public class BuyRateController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
 
 
         public BuyRateController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<BuyRateViewModel> GetBuyRateViewModels()
+        public IQueryable<BuyRateViewModel> Get()
         {
-            return scoreManager.BuyRateViewModels;
+            return _scoreManager.BuyRateViewModels;
         }
 
         // GET: api/BuyRateViewModels/5
@@ -41,7 +41,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/BuyRateViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutBuyRateViewModel(BuyRateViewModel BuyRateViewModel)
+        public async Task<IHttpActionResult> Put(BuyRateViewModel buyRateViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BuyRateViewModelExists(BuyRateViewModel))
+                if (!BuyRateViewModelExists(buyRateViewModel))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/BuyRateViewModels
         [ResponseType(typeof(BuyRateViewModel))]
-        public async Task<IHttpActionResult> PostBuyRateViewModel(BuyRateViewModel BuyRateViewModel)
+        public async Task<IHttpActionResult> Post(BuyRateViewModel buyRateViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!BuyRateViewModelExists(BuyRateViewModel))
+                if (!BuyRateViewModelExists(buyRateViewModel))
                 {
                     return NotFound();
                 }
@@ -94,7 +94,7 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = BuyRateViewModel.VehicleMakeModelClassId }, BuyRateViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = buyRateViewModel.VehicleMakeModelClassId }, buyRateViewModel);
         }
 
         // DELETE: api/BuyRateViewModels/5
@@ -102,8 +102,8 @@ namespace DealerPortalCRM.Controllers
         public async Task<IHttpActionResult> DeleteBuyRateViewModel(int id)
         {
             //BuyRateViewModel BuyRateViewModel = await scoreManager.BuyRateViewModels.FindAsync(id);//
-            BuyRateViewModel BuyRateViewModel = new BuyRateViewModel();
-            if (BuyRateViewModel == null)
+            BuyRateViewModel buyRateViewModel = new BuyRateViewModel();
+            if (buyRateViewModel == null)
             {
                 return NotFound();
             }
@@ -111,19 +111,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.BuyRateViewModels.Remove(BuyRateViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(BuyRateViewModel);
+            return Ok(buyRateViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool BuyRateViewModelExists(BuyRateViewModel BuyRateViewModel)
+        private bool BuyRateViewModelExists(BuyRateViewModel buyRateViewModel)
         {
             //hardcoded
             return false;

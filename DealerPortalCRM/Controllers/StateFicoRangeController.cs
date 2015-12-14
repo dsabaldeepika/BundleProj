@@ -15,22 +15,22 @@ namespace DealerPortalCRM.Controllers
 {
     public class StateFicoRangeController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
         public StateFicoRangeController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.StateFicoRange);
             //   db = new StateFicoRangeEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
         
-        public IQueryable<StateFicoRangeViewModel> GetStateFicoRangeViewModels()
+        public IQueryable<StateFicoRangeViewModel> GetState()
         {
-            return scoreManager.StateFicoRangeViewModels;
+            return _scoreManager.StateFicoRangeViewModels;
         }
 
         // GET: api/StateFicoRangeViewModels/5
@@ -38,7 +38,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/StateFicoRangeViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutStateFicoRangeViewModel(StateFicoRangeViewModel StateFicoRangeViewModel)
+        public async Task<IHttpActionResult> PutState(StateFicoRangeViewModel stateFicoRangeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StateFicoRangeViewModelExists(StateFicoRangeViewModel))
+                if (!StateFicoRangeViewModelExists(stateFicoRangeViewModel))
                 {
                     return NotFound();
                 }
@@ -68,7 +68,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/StateFicoRangeViewModels
         [ResponseType(typeof(StateFicoRangeViewModel))]
-        public async Task<IHttpActionResult> PostStateFicoRangeViewModel(StateFicoRangeViewModel StateFicoRangeViewModel)
+        public async Task<IHttpActionResult> Post(StateFicoRangeViewModel stateFicoRangeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -81,7 +81,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!StateFicoRangeViewModelExists(StateFicoRangeViewModel))
+                if (!StateFicoRangeViewModelExists(stateFicoRangeViewModel))
                 {
                     return NotFound();
                 }
@@ -91,16 +91,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = StateFicoRangeViewModel.VehicleMakeModelClassId }, StateFicoRangeViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = stateFicoRangeViewModel.VehicleMakeModelClassId }, stateFicoRangeViewModel);
         }
 
         // DELETE: api/StateFicoRangeViewModels/5
         [ResponseType(typeof(StateFicoRangeViewModel))]
-        public async Task<IHttpActionResult> DeleteStateFicoRangeViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //StateFicoRangeViewModel StateFicoRangeViewModel = await scoreManager.StateFicoRangeViewModels.FindAsync(id);//
-            StateFicoRangeViewModel StateFicoRangeViewModel = new StateFicoRangeViewModel();
-            if (StateFicoRangeViewModel == null)
+            StateFicoRangeViewModel stateFicoRangeViewModel = new StateFicoRangeViewModel();
+            if (stateFicoRangeViewModel == null)
             {
                 return NotFound();
             }
@@ -108,19 +108,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.StateFicoRangeViewModels.Remove(StateFicoRangeViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(StateFicoRangeViewModel);
+            return Ok(stateFicoRangeViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool StateFicoRangeViewModelExists(StateFicoRangeViewModel StateFicoRangeViewModel)
+        private bool StateFicoRangeViewModelExists(StateFicoRangeViewModel stateFicoRangeViewModel)
         {
             //hardcoded
             return false;

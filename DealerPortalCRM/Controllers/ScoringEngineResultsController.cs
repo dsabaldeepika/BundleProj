@@ -15,25 +15,25 @@ namespace DealerPortalCRM.Controllers
 {
     public class ScoringEngineController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
 
 
         public ScoringEngineController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<ScoringEngineViewModel> GetScoringEngineViewModels()
+        public IQueryable<ScoringEngineViewModel> Get()
         {
-            return scoreManager.ScoringEngineViewModels;
+            return _scoreManager.ScoringEngineViewModels;
         }
 
         // GET: api/ScoringEngineViewModels/5
@@ -41,7 +41,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/ScoringEngineViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutScoringEngineViewModel(ScoringEngineViewModel ScoringEngineViewModel)
+        public async Task<IHttpActionResult> Put(ScoringEngineViewModel scoringEngineViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ScoringEngineViewModelExists(ScoringEngineViewModel))
+                if (!ScoringEngineViewModelExists(scoringEngineViewModel))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/ScoringEngineViewModels
         [ResponseType(typeof(ScoringEngineViewModel))]
-        public async Task<IHttpActionResult> PostScoringEngineViewModel(ScoringEngineViewModel ScoringEngineViewModel)
+        public async Task<IHttpActionResult> Post(ScoringEngineViewModel scoringEngineViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!ScoringEngineViewModelExists(ScoringEngineViewModel))
+                if (!ScoringEngineViewModelExists(scoringEngineViewModel))
                 {
                     return NotFound();
                 }
@@ -94,16 +94,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = ScoringEngineViewModel.VehicleMakeModelClassId }, ScoringEngineViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = scoringEngineViewModel.VehicleMakeModelClassId }, scoringEngineViewModel);
         }
 
         // DELETE: api/ScoringEngineViewModels/5
         [ResponseType(typeof(ScoringEngineViewModel))]
-        public async Task<IHttpActionResult> DeleteScoringEngineViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //ScoringEngineViewModel ScoringEngineViewModel = await scoreManager.ScoringEngineViewModels.FindAsync(id);//
-            ScoringEngineViewModel ScoringEngineViewModel = new ScoringEngineViewModel();
-            if (ScoringEngineViewModel == null)
+            ScoringEngineViewModel scoringEngineViewModel = new ScoringEngineViewModel();
+            if (scoringEngineViewModel == null)
             {
                 return NotFound();
             }
@@ -111,19 +111,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.ScoringEngineViewModels.Remove(ScoringEngineViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(ScoringEngineViewModel);
+            return Ok(scoringEngineViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool ScoringEngineViewModelExists(ScoringEngineViewModel ScoringEngineViewModel)
+        private bool ScoringEngineViewModelExists(ScoringEngineViewModel scoringEngineViewModel)
         {
             //hardcoded
             return false;

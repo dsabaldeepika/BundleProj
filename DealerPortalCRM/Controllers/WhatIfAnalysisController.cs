@@ -15,25 +15,25 @@ namespace DealerPortalCRM.Controllers
 {
     public class WhatIfAnalysisController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
 
 
         public WhatIfAnalysisController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<WhatIfAnalysisViewModel> GetWhatIfAnalysisViewModels()
+        public IQueryable<WhatIfAnalysisViewModel> Get()
         {
-            return scoreManager.WhatIfAnalysisViewModels;
+            return _scoreManager.WhatIfAnalysisViewModels;
         }
 
         // GET: api/WhatIfAnalysisViewModels/5
@@ -41,7 +41,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/WhatIfAnalysisViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutWhatIfAnalysisViewModel(WhatIfAnalysisViewModel WhatIfAnalysisViewModel)
+        public async Task<IHttpActionResult> Put(WhatIfAnalysisViewModel whatIfAnalysisViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!WhatIfAnalysisViewModelExists(WhatIfAnalysisViewModel))
+                if (!WhatIfAnalysisViewModelExists(whatIfAnalysisViewModel))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/WhatIfAnalysisViewModels
         [ResponseType(typeof(WhatIfAnalysisViewModel))]
-        public async Task<IHttpActionResult> PostWhatIfAnalysisViewModel(WhatIfAnalysisViewModel WhatIfAnalysisViewModel)
+        public async Task<IHttpActionResult> Post(WhatIfAnalysisViewModel whatIfAnalysisViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!WhatIfAnalysisViewModelExists(WhatIfAnalysisViewModel))
+                if (!WhatIfAnalysisViewModelExists(whatIfAnalysisViewModel))
                 {
                     return NotFound();
                 }
@@ -94,16 +94,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = WhatIfAnalysisViewModel.VehicleMakeModelClassId }, WhatIfAnalysisViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = whatIfAnalysisViewModel.VehicleMakeModelClassId }, whatIfAnalysisViewModel);
         }
 
         // DELETE: api/WhatIfAnalysisViewModels/5
         [ResponseType(typeof(WhatIfAnalysisViewModel))]
-        public async Task<IHttpActionResult> DeleteWhatIfAnalysisViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //WhatIfAnalysisViewModel WhatIfAnalysisViewModel = await scoreManager.WhatIfAnalysisViewModels.FindAsync(id);//
-            WhatIfAnalysisViewModel WhatIfAnalysisViewModel = new WhatIfAnalysisViewModel();
-            if (WhatIfAnalysisViewModel == null)
+            WhatIfAnalysisViewModel whatIfAnalysisViewModel = new WhatIfAnalysisViewModel();
+            if (whatIfAnalysisViewModel == null)
             {
                 return NotFound();
             }
@@ -111,19 +111,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.WhatIfAnalysisViewModels.Remove(WhatIfAnalysisViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(WhatIfAnalysisViewModel);
+            return Ok(whatIfAnalysisViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool WhatIfAnalysisViewModelExists(WhatIfAnalysisViewModel WhatIfAnalysisViewModel)
+        private bool WhatIfAnalysisViewModelExists(WhatIfAnalysisViewModel whatIfAnalysisViewModel)
         {
             //hardcoded
             return false;

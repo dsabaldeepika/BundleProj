@@ -15,25 +15,25 @@ namespace DealerPortalCRM.Controllers
 {
     public class AdjustmentRangeController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
       
 
         public AdjustmentRangeController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
            // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
          //   db = new ScoringEngineEntities(connectionString);
            // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<AdjustmentRangeViewModel> GetAdjustmentRangeViewModels()
+        public IQueryable<AdjustmentRangeViewModel> Get()
         {
-            return scoreManager.AdjustmentRangeViewModels;
+            return _scoreManager.AdjustmentRangeViewModels;
         }
 
         // GET: api/AdjustmentRangeViewModels/5
@@ -41,7 +41,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/AdjustmentRangeViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAdjustmentRangeViewModel(AdjustmentRangeViewModel AdjustmentRangeViewModel)
+        public async Task<IHttpActionResult> Put(AdjustmentRangeViewModel adjustmentRangeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AdjustmentRangeViewModelExists(AdjustmentRangeViewModel))
+                if (!AdjustmentRangeViewModelExists(adjustmentRangeViewModel))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/AdjustmentRangeViewModels
         [ResponseType(typeof(AdjustmentRangeViewModel))]
-        public async Task<IHttpActionResult> PostAdjustmentRangeViewModel(AdjustmentRangeViewModel AdjustmentRangeViewModel)
+        public async Task<IHttpActionResult> Post(AdjustmentRangeViewModel adjustmentRangeViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!AdjustmentRangeViewModelExists(AdjustmentRangeViewModel))
+                if (!AdjustmentRangeViewModelExists(adjustmentRangeViewModel))
                 {
                     return NotFound();
                 }
@@ -94,18 +94,18 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = AdjustmentRangeViewModel.VehicleMakeModelClassId }, AdjustmentRangeViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = adjustmentRangeViewModel.VehicleMakeModelClassId }, adjustmentRangeViewModel);
         }
 
         // DELETE: api/AdjustmentRangeViewModels/5
         [ResponseType(typeof(AdjustmentRangeViewModel))]
-        public async Task<IHttpActionResult> DeleteAdjustmentRangeViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //AdjustmentRangeViewModel AdjustmentRangeViewModel = await scoreManager.AdjustmentRangeViewModels.FindAsync(id);
 
             //to be removed
-            AdjustmentRangeViewModel AdjustmentRangeViewModel = new AdjustmentRangeViewModel();
-            if (AdjustmentRangeViewModel == null)
+            AdjustmentRangeViewModel adjustmentRangeViewModel = new AdjustmentRangeViewModel();
+            if (adjustmentRangeViewModel == null)
             {
                 return NotFound();
             }
@@ -113,19 +113,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.AdjustmentRangeViewModels.Remove(AdjustmentRangeViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(AdjustmentRangeViewModel);
+            return Ok(adjustmentRangeViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool AdjustmentRangeViewModelExists(AdjustmentRangeViewModel AdjustmentRangeViewModel)
+        private bool AdjustmentRangeViewModelExists(AdjustmentRangeViewModel adjustmentRangeViewModel)
         {
             //hardcoded
             return false;

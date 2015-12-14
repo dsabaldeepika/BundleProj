@@ -15,25 +15,25 @@ namespace DealerPortalCRM.Controllers
 {
     public class PricingBaseController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
 
 
 
         public PricingBaseController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<PricingBaseViewModel> GetPricingBaseViewModels()
+        public IQueryable<PricingBaseViewModel> Get()
         {
-            return scoreManager.PricingBaseViewModels;
+            return _scoreManager.PricingBaseViewModels;
         }
 
         // GET: api/PricingBaseViewModels/5
@@ -41,7 +41,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/PricingBaseViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutPricingBaseViewModel(PricingBaseViewModel PricingBaseViewModel)
+        public async Task<IHttpActionResult> Put(PricingBaseViewModel pricingBaseViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PricingBaseViewModelExists(PricingBaseViewModel))
+                if (!PricingBaseViewModelExists(pricingBaseViewModel))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/PricingBaseViewModels
         [ResponseType(typeof(PricingBaseViewModel))]
-        public async Task<IHttpActionResult> PostPricingBaseViewModel(PricingBaseViewModel PricingBaseViewModel)
+        public async Task<IHttpActionResult> Post(PricingBaseViewModel pricingBaseViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!PricingBaseViewModelExists(PricingBaseViewModel))
+                if (!PricingBaseViewModelExists(pricingBaseViewModel))
                 {
                     return NotFound();
                 }
@@ -94,16 +94,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = PricingBaseViewModel.VehicleMakeModelClassId }, PricingBaseViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = pricingBaseViewModel.VehicleMakeModelClassId }, pricingBaseViewModel);
         }
 
         // DELETE: api/PricingBaseViewModels/5
         [ResponseType(typeof(PricingBaseViewModel))]
-        public async Task<IHttpActionResult> DeletePricingBaseViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //PricingBaseViewModel PricingBaseViewModel = await scoreManager.PricingBaseViewModels.FindAsync(id);//
-            PricingBaseViewModel PricingBaseViewModel = new PricingBaseViewModel();
-            if (PricingBaseViewModel == null)
+            PricingBaseViewModel pricingBaseViewModel = new PricingBaseViewModel();
+            if (pricingBaseViewModel == null)
             {
                 return NotFound();
             }
@@ -111,19 +111,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.PricingBaseViewModels.Remove(PricingBaseViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(PricingBaseViewModel);
+            return Ok(pricingBaseViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool PricingBaseViewModelExists(PricingBaseViewModel PricingBaseViewModel)
+        private bool PricingBaseViewModelExists(PricingBaseViewModel pricingBaseViewModel)
         {
             //hardcoded
             return false;

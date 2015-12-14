@@ -15,23 +15,23 @@ namespace DealerPortalCRM.Controllers
 {
     public class TermCapController : ApiController
     {
-        private readonly string connectionString;
-        private readonly ConnectionStringProperty connectionStringProperty;
-        private readonly ScoringEngineEntities db;
-        private readonly ScoreManager scoreManager;
+        private readonly string _connectionString;
+        private readonly ConnectionStringProperty _connectionStringProperty;
+        private readonly ScoringEngineEntities _db;
+        private readonly ScoreManager _scoreManager;
         
         public TermCapController()
         {
-            connectionStringProperty = new ConnectionStringProperty();
+            _connectionStringProperty = new ConnectionStringProperty();
             // connectionString = connectionStringProperty.GetConnection(ConnectionStringTypeEnum.ScoringEngine);
             //   db = new ScoringEngineEntities(connectionString);
             // scoreManager = new ScoreManager(db);
         }
 
 
-        public IQueryable<TermCapViewModel> GetTermCapViewModels()
+        public IQueryable<TermCapViewModel> Get()
         {
-            return scoreManager.TermCapViewModels;
+            return _scoreManager.TermCapViewModels;
         }
 
         // GET: api/TermCapViewModels/5
@@ -39,7 +39,7 @@ namespace DealerPortalCRM.Controllers
 
         // PUT: api/TermCapViewModels/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutTermCapViewModel(TermCapViewModel TermCapViewModel)
+        public async Task<IHttpActionResult> Put(TermCapViewModel termCapViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TermCapViewModelExists(TermCapViewModel))
+                if (!TermCapViewModelExists(termCapViewModel))
                 {
                     return NotFound();
                 }
@@ -69,7 +69,7 @@ namespace DealerPortalCRM.Controllers
 
         // POST: api/TermCapViewModels
         [ResponseType(typeof(TermCapViewModel))]
-        public async Task<IHttpActionResult> PostTermCapViewModel(TermCapViewModel TermCapViewModel)
+        public async Task<IHttpActionResult> Post(TermCapViewModel termCapViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace DealerPortalCRM.Controllers
             }
             catch (System.Exception)
             {
-                if (!TermCapViewModelExists(TermCapViewModel))
+                if (!TermCapViewModelExists(termCapViewModel))
                 {
                     return NotFound();
                 }
@@ -92,16 +92,16 @@ namespace DealerPortalCRM.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = TermCapViewModel.VehicleMakeModelClassId }, TermCapViewModel);
+            return CreatedAtRoute("DefaultApi", new { id = termCapViewModel.VehicleMakeModelClassId }, termCapViewModel);
         }
 
         // DELETE: api/TermCapViewModels/5
         [ResponseType(typeof(TermCapViewModel))]
-        public async Task<IHttpActionResult> DeleteTermCapViewModel(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             //TermCapViewModel TermCapViewModel = await scoreManager.TermCapViewModels.FindAsync(id);//
-            TermCapViewModel TermCapViewModel = new TermCapViewModel();
-            if (TermCapViewModel == null)
+            TermCapViewModel termCapViewModel = new TermCapViewModel();
+            if (termCapViewModel == null)
             {
                 return NotFound();
             }
@@ -109,19 +109,19 @@ namespace DealerPortalCRM.Controllers
             //scoreManager.TermCapViewModels.Remove(TermCapViewModel);
             //await scoreManager.SaveChangesAsync();
 
-            return Ok(TermCapViewModel);
+            return Ok(termCapViewModel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.db.Dispose();
+                this._db.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        private bool TermCapViewModelExists(TermCapViewModel TermCapViewModel)
+        private bool TermCapViewModelExists(TermCapViewModel termCapViewModel)
         {
             //hardcoded
             return false;
