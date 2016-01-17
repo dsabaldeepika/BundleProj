@@ -32,3 +32,4 @@ C:\Repo\Bundle.Profile.Client\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlat
 C:\Repo\Bundle.Profile.Client\obj\Debug\Bundle.Profile.Client.csprojResolveAssemblyReference.cache
 C:\Repo\Bundle.Profile.Client\obj\Debug\Bundle.Profile.Client.dll
 C:\Repo\Bundle.Profile.Client\obj\Debug\Bundle.Profile.Client.pdb
+C:\Bundle_Sites\Bundle.Profile.Client\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
